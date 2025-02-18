@@ -1,26 +1,169 @@
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 6088104
+Server version: 8.0.40 Source distribution
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show tables;
++-----------------------------+
+| Tables_in_alexiGIol$default |
++-----------------------------+
+| detalle_horario             |
+| horario                     |
+| plantilla_detalle_horario   |
+| usuario                     |
++-----------------------------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT into usuario (nombre, apellido, departamento) valúes ('nohi','hernandez','cbtis-246');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'valúes ('nohi','hernandez','cbtis-246')' at line 1
+mysql> INSERT into usuario (nombre, apellido, departamento) values ('nohi','hernandez','cbtis-246');
 Query OK, 1 row affected (0.01 sec)
-Rows matched: 1  Changed: 1  Warnings: 0
-mysql> UPDATE usuario set idx= 10 where nombre = 'ximena';
+
+mysql> SELECT * FROM USUARIOS;
+ERROR 1146 (42S02): Table 'alexiGIol$default.USUARIOS' doesn't exist
+mysql> S^Z^Z                    
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'S' at line 1
+mysql> SELECT * from usuarios;
+ERROR 1146 (42S02): Table 'alexiGIol$default.usuarios' doesn't exist
+mysql> SELECT * from usuario;
++--------+-----------+--------------+
+| nombre | apellido  | departamento |
++--------+-----------+--------------+
+| nohi   | hernandez | cbtis-246    |
++--------+-----------+--------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT into usuario (nombre, apellido, departamento) values ('jesus','pererez','cbtis-246');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT into usuario (nombre, apellido, departamento) values ('alexis','estrada','cbtis-246');
 Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT into usuario (nombre, apellido, departamento) values ('ari','sanchez','cbtis-246');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT into usuario (nombre, apellido, departamento) values ('diego','cabañas','cbtis-246');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT into usuario (nombre, apellido, departamento) values ('abigail','huerta','cbtis-246');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT into usuario (nombre, apellido, departamento) values ('david','quetzal','cbtis-246');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT into usuario (nombre, apellido, departamento) values ('camila','abiles','cbtis-246');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT into usuario (nombre, apellido, departamento) values ('ximena','torres','cbtis-246');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT into usuario (nombre, apellido, departamento) values ('mora','cortez','cbtis-246');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * from usuario;
++---------+-----------+--------------+
+| nombre  | apellido  | departamento |
++---------+-----------+--------------+
+| abigail | huerta    | cbtis-246    |
+| alexis  | estrada   | cbtis-246    |
+| ari     | sanchez   | cbtis-246    |
+| camila  | abiles    | cbtis-246    |
+| david   | quetzal   | cbtis-246    |
+| diego   | cabañas   | cbtis-246    |
+| jesus   | pererez   | cbtis-246    |
+| mora    | cortez    | cbtis-246    |
+| nohi    | hernandez | cbtis-246    |
+| ximena  | torres    | cbtis-246    |
++---------+-----------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE usuario
+    -> ADD idx int (15) NOT NULL;
+Query OK, 0 rows affected, 1 warning (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> UPDATE usuario set idx= 1 where nombre = 'abigail';
+Query OK, 1 row affected (0.02 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
+
 mysql> SELECT * from usuario;
 +---------+-----------+--------------+-----+
 | nombre  | apellido  | departamento | idx |
 +---------+-----------+--------------+-----+
 | abigail | huerta    | cbtis-246    |   1 |
-| alexis  | estrada   | cbtis-246    |   2 |
-| ari     | sanchez   | cbtis-246    |   3 |
-| camila  | abiles    | cbtis-246    |   4 |
-| david   | quetzal   | cbtis-246    |   5 |
-| diego   | cabañas   | cbtis-246    |   6 |
-| jesus   | pererez   | cbtis-246    |   7 |
-| mora    | cortez    | cbtis-246    |   8 |
-| nohi    | hernandez | cbtis-246    |   9 |
-| ximena  | torres    | cbtis-246    |  10 |
+| alexis  | estrada   | cbtis-246    |   0 |
+| ari     | sanchez   | cbtis-246    |   0 |
+| camila  | abiles    | cbtis-246    |   0 |
+| david   | quetzal   | cbtis-246    |   0 |
+| diego   | cabañas   | cbtis-246    |   0 |
+| jesus   | pererez   | cbtis-246    |   0 |
+| mora    | cortez    | cbtis-246    |   0 |
+| nohi    | hernandez | cbtis-246    |   0 |
+| ximena  | torres    | cbtis-246    |   0 |
 +---------+-----------+--------------+-----+
 10 rows in set (0.00 sec)
-mysql>    |
-    -> 
-    -> | horario                     |
-    -> 
-    -> | plantilla_detalle_horario 
+
+mysql> UPDATE usuario set idx= 2 where nombre = 'alexis';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE usuario set idx= 3 where nombre = 'ari';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE usuario set idx= 4 where nombre = 'camila';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE usuario set idx= 5 where nombre = 'david';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE usuario set idx= 6 where nombre = 'diego';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE usuario set idx= 7 where nombre = 'jesus';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql>ACTUALIZAR usuario set idx= 8 donde nombre = 'mora';
+Consulta correcta, 1 fila afectada (0,02 segundos)
+Filas coincidentes: 1 Cambiadas: 1 Advertencias: 0
+mysql> UPDATE usuario set idx= 9 donde nombre = 'nohi';
+Consulta correcta, 1 fila afectada (0,01 s)
+Filas coincidentes: 1 Cambiadas: 1 Advertencias: 0
+mysql>ACTUALIZAR usuario set idx= 10 donde nombre = 'ximena';
+Consulta correcta, 1 fila afectada (0,01 s)
+Filas coincidentes: 1 Cambiadas: 1 Advertencias: 0
+mysql> SELECT * de usuario;
++---------+-----------+--------------+-----+
+| nombre | apellido | departamento | identificación |
++---------+-----------+--------------+-----+
+| abigail | huerta | cbtis-246 | 1 |
+| alexis | camino | cbtis-246 | 2 |
+| ari | sánchez | cbtis-246 | 3 |
+| camila | habilidades | cbtis-246 | 4 |
+| David | quetzales | cbtis-246 | 5 |
+| diego | cabañas | cbtis-246 | 6 |
+| Jesús | pérez | cbtis-246 | 7 |
+| mora | cortez | cbtis-246 | 8 |
+| nohi | hernández | cbtis-246 | 9 |
+| ximena | torres | cbtis-246 | 10 |
++---------+-----------+--------------+-----+
+10 filas en conjunto (0,00 seg.)
+>mysql>|
+    ->
+    -> | horario |
+    ->
+    -> | plantilla_detalle_horario
