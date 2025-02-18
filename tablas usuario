@@ -1,0 +1,26 @@
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> UPDATE usuario set idx= 10 where nombre = 'ximena';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> SELECT * from usuario;
++---------+-----------+--------------+-----+
+| nombre  | apellido  | departamento | idx |
++---------+-----------+--------------+-----+
+| abigail | huerta    | cbtis-246    |   1 |
+| alexis  | estrada   | cbtis-246    |   2 |
+| ari     | sanchez   | cbtis-246    |   3 |
+| camila  | abiles    | cbtis-246    |   4 |
+| david   | quetzal   | cbtis-246    |   5 |
+| diego   | cabañas   | cbtis-246    |   6 |
+| jesus   | pererez   | cbtis-246    |   7 |
+| mora    | cortez    | cbtis-246    |   8 |
+| nohi    | hernandez | cbtis-246    |   9 |
+| ximena  | torres    | cbtis-246    |  10 |
++---------+-----------+--------------+-----+
+10 rows in set (0.00 sec)
+mysql>    |
+    -> 
+    -> | horario                     |
+    -> 
+    -> | plantilla_detalle_horario 
