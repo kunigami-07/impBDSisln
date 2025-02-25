@@ -1,0 +1,231 @@
+Lectura de información de la tabla para completar los nombres de tablas y columnas
+Puede desactivar esta función para obtener un inicio más rápido con -A
+
+Bienvenido al monitor MySQL. Los comandos terminan con ; o \g.
+Su ID de conexión MySQL es 10020296
+Versión del servidor: 8.0.40 Distribución de origen
+
+Copyright (c) 2000, 2022, Oracle y/o sus filiales.
+
+Oracle es una marca registrada de Oracle Corporation y/o sus
+afiliados. Otros nombres pueden ser marcas comerciales de sus respectivos
+propietarios.
+
+Escriba 'help;' o '\h' para obtener ayuda. Escriba '\c' para borrar la declaración de entrada actual.
+
+mysql> uso  
+Database changed
+mysql> show TABLES;
++-----------------------------+
+| Tables_in_alexiGIol$default |
++-----------------------------+
+| detalle_horario             |
+| gamescores                  |
+| hockeygame                  |
+| hockeyteam                  |
+| hockeyteamplayer            |
+| horario                     |
+| plantilla_detalle_horario   |
+| playoffround                |
+| roundstats                  |
+| user                        |
+| userinfo                    |
+| userscorepicks              |
+| userstatspicks              |
+| usuario                     |
++-----------------------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT * from 
+    -> 
+    -> mysql> SELECT * from  playoffround;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> SELECT * from  playoffround' at line 3
+mysql> SELECT * from playoffround;;
++----+---------+---------+---------------------+------------+----------+
+| id | team1Id | team2Id | startTime           | endTime    | roundNum |
++----+---------+---------+---------------------+------------+----------+
+|  1 |       1 |       2 | 2025-02-19 20:00:00 | 2025-02-19 |        3 |
++----+---------+---------+---------------------+------------+----------+
+1 row in set (0.00 sec)
+
+ERROR: 
+No query specified
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> SELECT * from hockeygame;
++----+---------+---------------------+---------------+---------+---------+
+| id | roundId | startTime           | description   | team1Id | team2Id |
++----+---------+---------------------+---------------+---------+---------+
+|  1 |       1 | 2025-02-19 13:30:00 | Quarterfinals |       1 |       2 |
++----+---------+---------------------+---------------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * from ario             |
+    -> 
+    -> 
+    -> 
+    -> SELECT * from gamescores;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '|
+
+
+
+SELECT * from gamescores' at line 1
+mysql> ELECT * from gamescores;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ELECT * from gamescores' at line 1
+mysql> SELECT * from gamescores;
+Empty set (0.00 sec)
+
+mysql> INSERT into gamescores (id, team1Score, team2Score)
+values (1, 3, 2);INSERT into gamescores (id, team1Score, team2Score)
+^C
+mysql> values (1, 3, 2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(1, 3, 2)' at line 1
+mysql> INSERT into gamescores (id, team1Score, team2Score) values (1,3,2);
+ERROR 1054 (42S22): Unknown column 'team1Score' in 'field list'
+mysql> INSERT into gamescores (id, team1score, team2score) values (1,3,2);
+ERROR 1054 (42S22): Unknown column 'team1score' in 'field list'
+mysql> DESC gamescores;
++---------+------+------+-----+---------+-------+
+| Field   | Type | Null | Key | Default | Extra |
++---------+------+------+-----+---------+-------+
+| id      | int  | NO   | PRI | NULL    |       |
+| team1Id | int  | NO   |     | NULL    |       |
+| team2Id | int  | NO   |     | NULL    |       |
++---------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT into gamescores (id, team1Id, team2Id) values (1,3,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT into RoundStats (id, numShutouts, goalLeaderId, assistLeaderId, penaltyLeaderId, plusMinusLeaderId, faceoffsWonLeaderId, sogLeaderId)
+    -> 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT into roundstats (id, numshutouts, goalleaderId, assistleaderId, penaltyleaderId, plusminusleaderId, faceoffswonleaderId, sogleaderId) values (1, 2, 10, 15, 12, 8, 14, 20);
+ERROR 1054 (42S22): Unknown column 'plusminusleaderId' in 'field list'
+mysql> DESC roundstats;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| id                  | int         | NO   | PRI | NULL    |       |
+| numShutouts         | int         | NO   |     | NULL    |       |
+| goalLeaderId        | varchar(16) | NO   |     | NULL    |       |
+| assistLeaderId      | varchar(16) | NO   |     | NULL    |       |
+| penaltyLeaderId     | varchar(16) | NO   |     | NULL    |       |
+| plusMinusId         | int         | NO   |     | NULL    |       |
+| faceOffsWonLeaderId | int         | NO   |     | NULL    |       |
+| sogLeaderId         | int         | NO   |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> INSERT into roundStats (id, numShutouts, goalLeaderId, assistLeaderId, penaltyLeaderId, plusMinusId, faceOffsWonLeaderId, sogLeaderId) values (1, 2, 10, 15, 12, 8, 14, 20);
+ERROR 1146 (42S02): Table 'alexiGIol$default.roundStats' doesn't exist
+mysql>  INSERT into roundstats (id, numShutouts, goalLeaderId, assistLeaderId, penaltyLeaderId, plusMinusId, faceOffsWonLeaderId, sogLeaderId) values (1, 2, 10, 15, 12, 8, 14, 20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT into userstatspicks (id, roundId, goalLeaderId, assistLeaderId, penaltyLeaderId, plusMinusId, faceoffsWonLeaderId, sogLeaderId, numShutouts, userId)
+    -> values (1, 1, 10, 15, 12, 8, 14, 20, 2, 2);
+ERROR 1054 (42S22): Unknown column 'roundId' in 'field list'
+mysql> DESC userstatspicks;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| id                  | int         | NO   |     | NULL    |       |
+| round1              | int         | NO   |     | NULL    |       |
+| goalLeaderId        | varchar(16) | NO   |     | NULL    |       |
+| assistLeaderId      | varchar(16) | NO   |     | NULL    |       |
+| penaltyLeaderId     | varchar(16) | NO   |     | NULL    |       |
+| plusMinusId         | int         | NO   |     | NULL    |       |
+| faceOffsWonLeaderId | int         | NO   |     | NULL    |       |
+| sogLeaderId         | int         | NO   |     | NULL    |       |
+| numShutouts         | int         | NO   |     | NULL    |       |
+| userId              | int         | NO   |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+10 rows in set (0.00 sec)
+
+mysql> INSERT into userstatspicks (id, round1, goalLeaderId, assistLeaderId, penaltyLeaderId, plusMinusId, faceoffsWonLeaderId, sogLeaderId, numShutouts, userId)
+    -> values (1, 1, 10, 15, 12, 8, 14, 20, 2, 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT into user (id, username, password)
+    -> values (1, 'jgraham', 'password123');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT into userscorepicks (id, hockeyGameId, team1Id, team2Id, userId)
+    -> values (1, 1, 3, 2, 1);
+ERROR 1054 (42S22): Unknown column 'team1Id' in 'field list'
+mysql> 
+mysql> INSERT into userscorepicks (id, hockeyGameId, team1Score, team2Score, userId)
+    -> values (1, 1, 3, 2, 1);
+ERROR 1054 (42S22): Unknown column 'team1Score' in 'field list'
+mysql> DESC userscorepicks;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| id           | int  | NO   | PRI | NULL    |       |
+| hockeyGameId | int  | NO   |     | NULL    |       |
+| team1IdScore | int  | NO   |     | NULL    |       |
+| team2IdScore | int  | NO   |     | NULL    |       |
+| userId       | int  | NO   |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT into userscorepicks (id, hockeyGameId, team1IdScore, team2IdScore, userId)
+    -> values (1, 1, 3, 2, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT into hockeyteam (id, name, logo)
+    -> values(1, 'Team A', 'logoA.png');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT into hockeyteamplayer (id, hockeyTeamId, firstName, lastName, jerseyNum, position)
+    -> values (1, 1, 'John', 'Hayden', 99, 'Forward');
+ERROR 1054 (42S22): Unknown column 'position' in 'field list'
+mysql> DESC hockeyteamplayer;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| id           | int         | NO   | PRI | NULL    |       |
+| hockeyTeamId | int         | NO   |     | NULL    |       |
+| firstName    | varchar(20) | NO   |     | NULL    |       |
+| lastName     | varchar(25) | NO   |     | NULL    |       |
+| jerseyNum    | int         | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+mysql> INSERT into hockeyteamplayer (id, hockeyTeamId, firstName, lastName, jerseyNum)
+    -> values (1, 1, 'John', 'Hayden', 99);
+Query OK, 1 row affected (0.01 sec)
+mysql> INSERT into userinfo (id, firstName, lastName, email, round1Points, round2Points, round3Points, round4Points)
+    -> values (1, 'John', 'Hayden', 'john.hayden@example.com', 10, 15, 20, 25);
+Query OK, 1 row affected (0.01 sec)
+mysql> SELECT * from userinfo;
++----+-----------+----------+-------------------------+--------------+--------------+--------------+--------------+
+| id | firstName | lastName | email                   | round1Points | round2Points | round3Points | round4Points |
++----+-----------+----------+-------------------------+--------------+--------------+--------------+--------------+
+|  1 | John      | Hayden   | john.hayden@example.com |           10 |           15 |           20 |           25 |
++----+-----------+----------+-------------------------+--------------+--------------+--------------+--------------+
+1 row in set (0.00 sec)
+mysql> 
+mysql> 
+mysql> mysql> SELECT * from userinfo;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'mysql> SELECT * from userinfo' at line 1
+mysql> 
+mysql> +----+-----------+----------+-------------------------+--------------+--------------+--------------+--------------+
+    -> 
+    -> | id | firstName | lastName | email                   | round1Points | round2Points | round3Points | round4Points |
+    -> 
+    -> +----+-----------
