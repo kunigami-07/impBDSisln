@@ -13,6 +13,16 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
+
+| usuario | CREATE TABLE `usuario` (
+  `nombre` varchar(255) NOT NULL,
+  `apellido` varchar(255) NOT NULL,
+  `departamento` varchar(255) NOT NULL,
+  `idx` int NOT NULL,
+  PRIMARY KEY (`nombre`,`apellido`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 |
+
+
 mysql> show tables;
 +-----------------------------+
 | Tables_in_alexiGIol$default |
