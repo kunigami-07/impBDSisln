@@ -168,3 +168,70 @@ mysql> SELECT
 |           3 | NULL         | 33-4567-8901 | NULL         |
 +-------------+--------------+--------------+--------------+
 3 rows in set (0.00 sec)
+
+
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23908609
+Server version: 8.0.40 Source distribution
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+mysql>     SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 2
+mysql>     SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`,
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 2
+mysql> SELECT 
+    ->  `Customer ID`,
+    -> MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    -> MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    -> MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '`Messi`
+GROUP BY 
+    `Customer ID`' at line 7
+mysql> SELECT 
+    ->  `Customer ID`,
+    -> MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    -> MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    -> MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    -> `Messi`
+    -> GROUP BY 
+    -> `Customer ID`;
++-------------+--------------+--------------+--------------+
+| Customer ID | Celular      | Trabajo      | Casa         |
++-------------+--------------+--------------+--------------+
+|           1 | 33-1878-1587 | 33-0573-2644 | NULL         |
+|           2 | 33-3784-2874 | NULL         | 33-5638-3874 |
+|           3 | NULL         | 33-0485-3874 | NULL         |
++-------------+--------------+--------------+--------------+
+3 rows in set (0.00 sec)
+mysql> 
