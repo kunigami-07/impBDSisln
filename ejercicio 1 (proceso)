@@ -1,0 +1,108 @@
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23897236
+Server version: 8.0.40 Source distribution
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+mysql> CREATE TABLE ´Original´ (
+    ->     ´Customer ID´ INT NOT NULL,
+    ->     ´Type Phone´ VARCHAR(20),
+    ->     ´Numer´ VARCHAR(20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near 'ID´ INT NOT NULL,
+    ´Type Phone´ VARCHAR(20),
+    ´Numer´ VARCHAR(20)
+)' at line 2
+mysql> CREATE TABLE ´Original´ (
+    ->     ´Customer id´ INT NOT NULL,
+    ->     ´Type Phone´ VARCHAR(20),
+    ->     ´Numer´ VARCHAR(20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near 'id´ INT NOT NULL,
+    ´Type Phone´ VARCHAR(20),
+    ´Numer´ VARCHAR(20)
+)' at line 2
+mysql> CREATE TABLE `Messi` (
+    ->     `Customer ID` INT NOT NULL,
+    ->     `Type Phone` VARCHAR(20),
+    ->     `Number` VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+mysql> INSERT INTO `Messi` (`Customer ID`, `Type Phone`, `Number`) VALUES
+    -> (1, 'Celular', '33-1878-1587'),
+    -> (1, 'Trabajo', '33-0573-2644'),
+    -> (2, 'Casa', '33-5638-3874'),
+    -> (2, 'Celular', '33-3784-2874'),
+    -> (3, 'Trabajo', '33-0485-3874');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+mysql> CREATE TABLE `CR7` (
+    ->     `Customer ID` INT NOT NULL,
+    ->     `Celular` VARCHAR(20),
+    ->     `Trabajo` VARCHAR(20),
+    ->     `Casa` VARCHAR(20),
+    ->     PRIMARY KEY (`Customer ID`)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO `CR7` (`Customer ID`, `Celular`, `Trabajo`, `Casa`)
+    -> SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Tabla_Original`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 3
+mysql> 
+mysql> INSERT INTO `CR7` (`Customer ID`, `Celular`, `Trabajo`, `Casa`)
+    -> SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 3
+mysql> INSERT INTO `CR7` (`Customer ID`, `Celular`, `Trabajo`, `Casa`)
+    -> SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 3
+mysql> INSERT INTO `CR7` (`Customer ID`, `Celular`, `Trabajo`, `Casa`)
+    -> SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 3
+mysql> 
+mysql> INSERT INTO `CR7` (`Customer ID`, `Celular`, `Trabajo`, `Casa`)
+    -> SELECT 
+    ->     
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+ ' at line 4
+mysql> 
