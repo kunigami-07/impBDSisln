@@ -1,0 +1,95 @@
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23908609
+Server version: 8.0.40 Source distribution
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+mysql>     SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 2
+mysql>     SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`,
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 2
+mysql> SELECT 
+    ->  `Customer ID`,
+    -> MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    -> MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    -> MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '`Messi`
+GROUP BY 
+    `Customer ID`' at line 7
+mysql> SELECT 
+    ->  `Customer ID`,
+    -> MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    -> MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    -> MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    -> `Messi`
+    -> GROUP BY 
+    -> `Customer ID`;
++-------------+--------------+--------------+--------------+
+| Customer ID | Celular      | Trabajo      | Casa         |
++-------------+--------------+--------------+--------------+
+|           1 | 33-1878-1587 | 33-0573-2644 | NULL         |
+|           2 | 33-3784-2874 | NULL         | 33-5638-3874 |
+|           3 | NULL         | 33-0485-3874 | NULL         |
++-------------+--------------+--------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE `Desarrollos` (
+    ->     `Desarrollo` VARCHAR(20),
+    ->     `Etapa` INT,
+    ->     `Finalizado` DATE
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO `Desarrollos` (`Desarrollo`, `Etapa`, `Finalizado`) VALUES
+    -> ('RestAPI', 1, '2023-11-03'),
+    -> ('RestAPI', 2, '2000-07-03'),
+    -> ('RestAPI', 3, '2024-05-07'),
+    -> ('Web', 1, '2024-10-15'),
+    -> ('Web', 2, '2024-03-23'),
+    -> ('Web', 3, NULL),
+    -> ('App', 1, '2025-10-03'),
+    -> ('App', 2, NULL);
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT DISTINCT `Desarrollo`
+    -> FROM `Desarrollos`
+    -> WHERE `Finalizado` IS NULL;
++------------+
+| Desarrollo |
++------------+
+| Web        |
+| App        |
++------------+
+2 rows in set (0.00 sec)
+mysql>
