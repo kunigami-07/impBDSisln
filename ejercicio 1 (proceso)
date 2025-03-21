@@ -106,3 +106,65 @@ mysql> INSERT INTO `CR7` (`Customer ID`, `Celular`, `Trabajo`, `Casa`)
 ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
  ' at line 4
 mysql> 
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23905173
+Server version: 8.0.40 Source distribution
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> INSERT INTO `CR7` (`Customer ID`, `Celular`, `Trabajo`, `Casa`)
+    -> SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 3
+mysql> INSERT INTO `CR7` (`Customer ID`, `Celular`, `Trabajo`, `Casa`)
+    -> SELECT 
+    ->     
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+ ' at line 4
+mysql> SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     (SELECT 1 AS `Customer ID`, 'Celular' AS `Type Phone`, '33-1045-2302' AS `Number`
+    ->      UNION ALL SELECT 1, 'Trabajo', '33-1234-5678'
+    ->      UNION ALL SELECT 2, 'Casa', '33-2345-6789'
+    ->      UNION ALL SELECT 2, 'Celular', '33-3456-7890'
+    ->      UNION ALL SELECT 3, 'Trabajo', '33-4567-8901') AS `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
++-------------+--------------+--------------+--------------+
+| Customer ID | Celular      | Trabajo      | Casa         |
++-------------+--------------+--------------+--------------+
+|           1 | 33-1045-2302 | 33-1234-5678 | NULL         |
+|           2 | 33-3456-7890 | NULL         | 33-2345-6789 |
+|           3 | NULL         | 33-4567-8901 | NULL         |
++-------------+--------------+--------------+--------------+
+3 rows in set (0.00 sec)
