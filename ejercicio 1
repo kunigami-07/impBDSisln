@@ -1,0 +1,45 @@
+CREATE TABLE `Messi` (
+    `Customer ID` INT NOT NULL,
+    `Type Phone` VARCHAR(20),
+    `Number` VARCHAR(20)
+);
+
+INSERT INTO `Messi` (`Customer ID`, `Type Phone`, `Number`) VALUES
+(1, 'Celular', '33-1878-1587'),
+(1, 'Trabajo', '33-0573-2644'),
+(2, 'Casa', '33-5638-3874'),
+(2, 'Celular', '33-3784-2874'),
+(3, 'Trabajo', '33-0485-3874');
+
+CREATE TABLE `CR7` (
+    `Customer ID` INT NOT NULL,
+    `Celular` VARCHAR(20),
+    `Trabajo` VARCHAR(20),
+    `Casa` VARCHAR(20),
+    PRIMARY KEY (`Customer ID`)
+);
+
+SELECT 
+    `Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+FROM 
+    (SELECT 1 AS `Customer ID`, 'Celular' AS `Type Phone`, '33-1045-2302' AS `Number`
+     UNION ALL SELECT 1, 'Trabajo', '33-1234-5678'
+     UNION ALL SELECT 2, 'Casa', '33-2345-6789'
+     UNION ALL SELECT 2, 'Celular', '33-3456-7890'
+     UNION ALL SELECT 3, 'Trabajo', '33-4567-8901') AS `Messi`
+GROUP BY 
+    `Customer ID`;
+
+
+SELECT 
+ `Customer ID`,
+MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+FROM 
+`Messi`
+GROUP BY 
+`Customer ID`;
