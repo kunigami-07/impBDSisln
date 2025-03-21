@@ -1,0 +1,180 @@
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23908609
+Server version: 8.0.40 Source distribution
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+mysql>     SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 2
+mysql>     SELECT 
+    ->     `Customer ID`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    ->     MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`,
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '`Customer ID`,
+    MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) A' at line 2
+mysql> SELECT 
+    ->  `Customer ID`,
+    -> MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    -> MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    -> MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    ->     `Messi`
+    -> GROUP BY 
+    ->     `Customer ID`;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near '`Messi`
+GROUP BY 
+    `Customer ID`' at line 7
+mysql> SELECT 
+    ->  `Customer ID`,
+    -> MAX(CASE WHEN `Type Phone` = 'Celular' THEN `Number` END) AS `Celular`,
+    -> MAX(CASE WHEN `Type Phone` = 'Trabajo' THEN `Number` END) AS `Trabajo`,
+    -> MAX(CASE WHEN `Type Phone` = 'Casa' THEN `Number` END) AS `Casa`
+    -> FROM 
+    -> `Messi`
+    -> GROUP BY 
+    -> `Customer ID`;
++-------------+--------------+--------------+--------------+
+| Customer ID | Celular      | Trabajo      | Casa         |
++-------------+--------------+--------------+--------------+
+|           1 | 33-1878-1587 | 33-0573-2644 | NULL         |
+|           2 | 33-3784-2874 | NULL         | 33-5638-3874 |
+|           3 | NULL         | 33-0485-3874 | NULL         |
++-------------+--------------+--------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE `Desarrollos` (
+    ->     `Desarrollo` VARCHAR(20),
+    ->     `Etapa` INT,
+    ->     `Finalizado` DATE
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO `Desarrollos` (`Desarrollo`, `Etapa`, `Finalizado`) VALUES
+    -> ('RestAPI', 1, '2023-11-03'),
+    -> ('RestAPI', 2, '2000-07-03'),
+    -> ('RestAPI', 3, '2024-05-07'),
+    -> ('Web', 1, '2024-10-15'),
+    -> ('Web', 2, '2024-03-23'),
+    -> ('Web', 3, NULL),
+    -> ('App', 1, '2025-10-03'),
+    -> ('App', 2, NULL);
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT DISTINCT `Desarrollo`
+    -> FROM `Desarrollos`
+    -> WHERE `Finalizado` IS NULL;
++------------+
+| Desarrollo |
++------------+
+| Web        |
+| App        |
++------------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE `Requisitos` (
+    ->     `Descripcion` VARCHAR(20) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> NSERT INTO `Requisitos` (`Descripcion`) VALUES
+    -> ('Geólogo'),
+    -> ('Astrónomo'),
+    -> ('Técnico');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NSERT INTO `Requisitos` (`Descripcion`) VALUES
+('Geólogo'),
+('Astrónomo'),
+('T' at line 1
+mysql> NSERT INTO `Requisitos` (`Descripcion`) VALUES
+    -> ('Geólogo'),
+    -> ('Astrónomo'),
+    -> ('Tecnico');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NSERT INTO `Requisitos` (`Descripcion`) VALUES
+('Geólogo'),
+('Astrónomo'),
+('T' at line 1
+mysql> NSERT INTO `Requisitos` (`Descripcion`) VALUES
+    -> ('Geologo'),
+    -> ('Astronomo'),
+    -> ('Tecnico');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NSERT INTO `Requisitos` (`Descripcion`) VALUES
+('Geologo'),
+('Astronomo'),
+('Tec' at line 1
+mysql> NSERT INTO `Requisitos` (`Descripcion`) VALUES
+    -> ('Geologo'),
+    -> ('Astronomo'),
+    -> ('Tec-nico');}
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NSERT INTO `Requisitos` (`Descripcion`) VALUES
+('Geologo'),
+('Astronomo'),
+('Tec' at line 1
+    -> INSERT INTO `Requisitos` (`Descripcion`) VALUES
+    -> ('Geologo'),
+    -> ('Astronomo'),
+    -> ('Tecnico');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '}
+INSERT INTO `Requisitos` (`Descripcion`) VALUES
+('Geologo'),
+('Astronomo'),
+('' at line 1
+mysql> INSERT INTO `Requisitos` (`Descripcion`) VALUES
+    -> ('Geólogo'),
+    -> ('Astrónomo'),
+    -> ('Técnico');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE `Candidatos` (
+    ->     `Id_candidato` INT NOT NULL,
+    ->     `Descripcion` VARCHAR(20) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO `Candidatos` (`Id_candidato`, `Descripcion`) VALUES
+    -> (1001, 'Geólogo'),
+    -> (1001, 'Astrónomo'),
+    -> (1001, 'Bioquímico'),
+    -> (1001, 'Técnico'),
+    -> (2002, 'Cirujano'),
+    -> (2002, 'Mecánico'),
+    -> (2002, 'Geólogo'),
+    -> (3003, 'Geólogo'),
+    -> (3003, 'Astrónomo'),
+    -> (4004, 'Ingeniero');
+Query OK, 10 rows affected (0.00 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT `Id_candidato`
+    -> FROM `Candidatos`
+    -> WHERE `Descripcion` IN (SELECT `Descripcion` FROM `Requisitos`)
+    -> GROUP BY `Id_candidato`
+    -> HAVING COUNT(DISTINCT `Descripcion`) = (SELECT COUNT(*) FROM `Requisitos`);
++--------------+
+| Id_candidato |
++--------------+
+|         1001 |
++--------------+
+1 row in set (0.00 sec)
+mysql>
