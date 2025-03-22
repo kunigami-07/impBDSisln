@@ -1,0 +1,83 @@
+CREATE TABLE Empleados (
+Id_empleado INT PRIMARY KEY,
+Id_gerente INT NULL,
+Puesto VARCHAR(50) NOT NULL
+);
+
+INSERT INTO Empleados (Id_empleado, Id_gerente, Puesto) VALUES
+(1001, NULL, 'Presidente'),
+(2002, 1001, 'Director'),
+(3003, 1001, 'Gerente'),
+(4004, 2002, 'Ingeniero'),
+(5005, 2002, 'Contador'),
+(6006, 2002, 'Administrador');
+
+
+WITH RECURSIVE Jerarquia AS (
+SELECT Id_empleado, Id_gerente, Puesto, 0 AS Nivel
+FROM Empleados
+WHERE Id_gerente IS NULL
+
+UNION ALL
+
+SELECT e.Id_empleado, e.Id_gerente, e.Puesto, j.Nivel + 1
+FROM Empleados e
+JOIN Jerarquia j ON e.Id_gerente = j.Id_empleado
+)
+
+SELECT * FROM Jerarquia ORDER BY Nivel, Id_empleado;
+
+
+
+/// hacho en MySQL 
+
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 24682430
+Server version: 8.0.40 Source distribution
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+mysql> CREATE TABLE Empleados (
+    -> Id_empleado INT PRIMARY KEY,
+    -> Id_gerente INT NULL,
+    -> Puesto VARCHAR(50) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+mysql> INSERT INTO Empleados (Id_empleado, Id_gerente, Puesto) VALUES
+    -> (1001, NULL, 'Presidente'),
+    -> (2002, 1001, 'Director'),
+    -> (3003, 1001, 'Gerente'),
+    -> (4004, 2002, 'Ingeniero'),
+    -> (5005, 2002, 'Contador'),
+    -> (6006, 2002, 'Administrador');
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+mysql> WITH RECURSIVE Jerarquia AS (
+    -> SELECT Id_empleado, Id_gerente, Puesto, 0 AS Nivel
+    -> FROM Empleados
+    -> WHERE Id_gerente IS NULL
+    -> 
+    -> UNION ALL
+    -> 
+    -> SELECT e.Id_empleado, e.Id_gerente, e.Puesto, j.Nivel + 1
+    -> FROM Empleados e
+    -> JOIN Jerarquia j ON e.Id_gerente = j.Id_empleado
+    -> )
+    -> 
+    -> SELECT * FROM Jerarquia ORDER BY Nivel, Id_empleado;
++-------------+------------+---------------+-------+
+| Id_empleado | Id_gerente | Puesto        | Nivel |
++-------------+------------+---------------+-------+
+|        1001 |       NULL | Presidente    |     0 |
+|        2002 |       1001 | Director      |     1 |
+|        3003 |       1001 | Gerente       |     1 |
+|        4004 |       2002 | Ingeniero     |     2 |
+|        5005 |       2002 | Contador      |     2 |
+|        6006 |       2002 | Administrador |     2 |
++-------------+------------+---------------+-------+
+6 rows in set (0.00 sec)
+mysql> 
