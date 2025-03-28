@@ -1,0 +1,32 @@
+CREATE TABLE iteraciones (
+id INT AUTO_INCREMENT PRIMARY KEY,
+desarrollo VARCHAR(20),
+terminacion DATE
+);
+
+
+INSERT INTO iteraciones (desarrollo, terminacion)
+VALUES
+('RestAPI', '2024-06-01'),
+('RestAPI', '2024-06-14'),
+('Web', '2024-06-05'),
+('Web', '2024-06-10'),
+('Web', '2024-06-16'),
+('App', '2024-05-29'),
+('App', '2024-06-02'),
+('App', '2024-06-30');
+
+
+WITH cte AS (
+SELECT
+desarrollo,
+terminacion,
+LAG(terminacion) OVER (PARTITION BY desarrollo ORDER BY terminacion) AS terminacion_previa
+FROM iteraciones
+)
+SELECT
+desarrollo,
+ROUND(AVG(DATEDIFF(terminacion, terminacion_previa)), 0) AS promedio
+FROM cte
+WHERE terminacion_previa IS NOT NULL
+GROUP BY desarrollo;
