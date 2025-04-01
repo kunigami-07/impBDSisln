@@ -6,12 +6,21 @@ INSERT INTO numeros (entero) VALUES
 (5), (6), (10), (10), (13), (14), (17), (20), (81), (90), (76);
 
 
-
-SELECT 
-    ->     (SELECT AVG(entero) FROM numeros) AS media,
-    ->     (SELECT entero 
-    ->      FROM numeros 
-    ->      GROUP BY entero 
-    ->      ORDER BY COUNT(entero) DESC, entero ASC 
-    ->      LIMIT 1) AS moda,
-    ->     (SELECT MAX(entero) - MIN(entero) FROM numeros) AS rango;
+WITH Ordered AS (
+SELECT entero,
+ROW_NUMBER() OVER (ORDER BY entero) AS row_num,
+COUNT(*) OVER () AS total_count
+FROM numeros
+),
+Moda AS (
+SELECT entero, COUNT(*) as frecuencia
+FROM numeros
+GROUP BY entero
+ORDER BY frecuencia DESC
+LIMIT 1
+)
+SELECT
+(SELECT AVG(entero) FROM numeros) AS Media,
+(SELECT entero FROM Ordered WHERE row_num = (total_count + 1) / 2) AS Mediana,
+(SELECT entero FROM Moda) AS Moda,
+(SELECT MAX(entero) - MIN(entero) FROM numeros) AS Rango;
