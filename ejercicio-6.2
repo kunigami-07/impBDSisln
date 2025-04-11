@@ -1,0 +1,52 @@
+CREATE TABLE Asientos (
+    num_asiento INTEGER
+);
+
+
+INSERT INTO Asientos (num_asiento) VALUES
+(7), (13), (14), (15),
+(27), (28), (29), (30),
+(31), (32), (33), (34), (35),
+(52), (53), (54);
+
+
+
+WITH RECURSIVE numeros AS (
+    SELECT 1 AS n
+    UNION ALL
+    SELECT n + 1 FROM numeros WHERE n + 1 <= 54
+),
+libres AS (
+    SELECT n AS espacio
+    FROM numeros
+    WHERE n NOT IN (SELECT num_asiento FROM Asientos)
+),
+agrupados AS (
+    SELECT 
+        espacio,
+        espacio - ROW_NUMBER() OVER (ORDER BY espacio) AS grupo
+    FROM libres
+)
+SELECT 
+    MIN(espacio) AS espacio_inicio,
+    MAX(espacio) AS espacio_final
+FROM agrupados
+GROUP BY grupo
+ORDER BY espacio_inicio;
+
+
+WITH RECURSIVE numeros AS (
+    SELECT 1 AS n
+    UNION ALL
+    SELECT n + 1 FROM numeros WHERE n + 1 <= 54
+)
+SELECT COUNT(*) AS disponibles
+FROM numeros
+WHERE n NOT IN (SELECT num_asiento FROM Asientos);
+
+
+SELECT 
+    CASE WHEN MOD(num_asiento, 2) = 0 THEN 'pares' ELSE 'impares' END AS tipo,
+    COUNT(*) AS total
+FROM Asientos
+GROUP BY tipo;
