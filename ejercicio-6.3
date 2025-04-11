@@ -1,0 +1,41 @@
+CREATE TABLE Periodos (
+    Inicio DATE,
+    Final DATE
+);
+
+INSERT INTO Periodos (Inicio, Final)
+VALUES 
+    ('2025-01-01', '2025-01-05'),
+    ('2025-01-03', '2025-01-09'),
+    ('2025-01-10', '2025-01-11'),
+    ('2025-01-12', '2025-01-16'),
+    ('2025-01-15', '2025-01-19');
+
+
+
+WITH Ordenado AS (
+    SELECT 
+        *,
+        LAG(Final) OVER (ORDER BY Inicio) AS Final_Anterior,
+        LAG(Inicio) OVER (ORDER BY Inicio) AS Inicio_Anterior
+    FROM Periodos
+),
+Marcado AS (
+    SELECT *,
+        CASE 
+            WHEN Final_Anterior IS NULL OR Inicio > Final_Anterior THEN 1
+            ELSE 0
+        END AS NuevoGrupo
+    FROM Ordenado
+),
+Grupos AS (
+    SELECT *,
+        SUM(NuevoGrupo) OVER (ORDER BY Inicio ROWS UNBOUNDED PRECEDING) AS Grupo
+    FROM Marcado
+)
+SELECT 
+    MIN(Inicio) AS Inicio, 
+    MAX(Final) AS Final
+FROM Grupos
+GROUP BY Grupo
+ORDER BY Inicio;
