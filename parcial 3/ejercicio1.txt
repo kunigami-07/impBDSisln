@@ -1,0 +1,44 @@
+mysql> CREATE TABLE SampleData (
+    -> IntegerValue INTEGER PRIMARY KEY
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO SampleData VALUES (3759), (3760), (3761), (3762), (3763);
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT MAX(IntegerValue) AS SecondHighest
+    -> FROM SampleData
+    -> WHERE IntegerValue < (
+    -> SELECT MAX(IntegerValue)
+    -> FROM SampleData
+    -> );
++---------------+
+| SecondHighest |
++---------------+
+|          3762 |
++---------------+
+1 row in set (0.00 sec)
+mysql> 
+mysql> CREATE TABLE Employees (
+    -> Name VARCHAR(100),
+    -> Salary INT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+mysql> INSERT INTO Employees (Name, Salary) VALUES
+    -> ('Ayumi Arenas', 250000),
+    -> ('Saul Hernandez', 250000),
+    -> ('Alan Luna', 150000),
+    -> ('Victor Sanchez', 150000),
+    -> ('Jose Solis', 100000),
+    -> ('Keysha Garcia', 100000);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+mysql> SELECT DISTINCT Salary
+    -> FROM Employees
+    -> ORDER BY Salary DESC
+    -> LIMIT 1 OFFSET 1;
++--------+
+| Salary |
++--------+
+| 150000 |
